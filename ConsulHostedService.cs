@@ -39,7 +39,7 @@ namespace ConsulServiceDiscovery
             var addresses = features?.Get<IServerAddressesFeature>();
             var address = addresses?.Addresses.FirstOrDefault();
 
-            var uri = new Uri(address);
+            var uri = new Uri(address.Replace("*", "localhost")); // Handle env: ASPNETCORE_URLS=http://*:5001
             var name = Dns.GetHostName(); // to get the container id
             var ip = Dns.GetHostEntry(name).AddressList.FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork);
 
